@@ -30,7 +30,6 @@ async def create_chat(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Create a new chat session."""
     chat = await ChatService.create_chat(db, current_user.user_id, chat_data.title)
     return ChatResponse.model_validate(chat)
 
@@ -40,7 +39,6 @@ async def list_chats(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """List all chats for the current user."""
     chats = await ChatService.get_user_chats(db, current_user.user_id)
     return [ChatResponse.model_validate(c) for c in chats]
 
@@ -51,7 +49,6 @@ async def get_chat(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Get a specific chat with all messages."""
     chat = await ChatService.get_chat_by_id(db, chat_id, current_user.user_id)
     if not chat:
         raise HTTPException(status_code=404, detail="Chat not found")
@@ -67,7 +64,6 @@ async def delete_chat(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """Delete a chat and all its messages."""
     deleted = await ChatService.delete_chat(db, chat_id, current_user.user_id)
     if not deleted:
         raise HTTPException(status_code=404, detail="Chat not found")
@@ -80,10 +76,6 @@ async def stream_message(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    """
-    Send a message and receive a streaming response via Server-Sent Events.
-    Optionally uses RAG if use_rag=True and documents are available.
-    """
     # Verify chat ownership
     chat = await ChatService.get_chat_by_id(db, chat_id, current_user.user_id)
     if not chat:
@@ -116,7 +108,6 @@ async def stream_message(
             )
 
     async def event_generator():
-        """SSE generator that streams tokens and saves the full response."""
         full_response = ""
         try:
             yield f"data: {json.dumps({'type': 'start', 'message_id': user_msg.message_id})}\n\n"

@@ -14,7 +14,6 @@ router = APIRouter()
 
 @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
 async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)):
-    """Register a new user account."""
     existing = await UserService.get_user_by_email(db, user_data.email)
     if existing:
         raise HTTPException(
@@ -28,7 +27,6 @@ async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)):
 
 @router.post("/login", response_model=Token)
 async def login(credentials: UserLogin, db: AsyncSession = Depends(get_db)):
-    """Login with email and password."""
     user = await UserService.authenticate_user(db, credentials.email, credentials.password)
     if not user:
         raise HTTPException(

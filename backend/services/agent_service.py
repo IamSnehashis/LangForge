@@ -17,9 +17,7 @@ from backend.core.config import settings
 logger = logging.getLogger(__name__)
 
 
-# ──────────────────────────────────────────
 # Tool Definitions
-# ──────────────────────────────────────────
 
 class Tool:
     def __init__(self, name: str, description: str, func: Callable):
@@ -39,7 +37,6 @@ class Tool:
 
 
 def calculator_tool(expression: str) -> str:
-    """Safe calculator - evaluates simple math expressions."""
     import re
     # Only allow safe math chars
     if re.match(r'^[\d\s\+\-\*\/\.\(\)\%\*\*]+$', expression):
@@ -52,7 +49,6 @@ def calculator_tool(expression: str) -> str:
 
 
 def string_tool(text: str) -> str:
-    """Utility tool for string operations."""
     parts = text.split(":", 1)
     if len(parts) != 2:
         return "Format: <operation>:<text>  (operations: upper, lower, reverse, length, count_words)"
@@ -68,12 +64,10 @@ def string_tool(text: str) -> str:
 
 
 def current_time_tool(_: str) -> str:
-    """Returns current UTC timestamp."""
     return datetime.utcnow().strftime("%Y-%m-%d %Human:%M:%S UTC")
 
 
 def search_knowledge_tool(query: str) -> str:
-    """Simulated knowledge lookup - in production, wire to a real knowledge base."""
     kb = {
         "python": "Python is a high-level, interpreted programming language known for readability.",
         "ai": "Artificial Intelligence is the simulation of human intelligence by machines.",
@@ -97,9 +91,7 @@ DEFAULT_TOOLS = [
 ]
 
 
-# ──────────────────────────────────────────
 # ReAct Agent
-# ──────────────────────────────────────────
 
 REACT_SYSTEM_PROMPT = """You are a helpful AI agent. You solve problems step by step using available tools.
 
@@ -123,8 +115,6 @@ Rules:
 """
 
 class AgentService:
-    """ReAct (Reason + Act) agent with DB-logged execution traces."""
-
     def __init__(self, tools: List[Tool] = None):
         self.tools = {t.name: t for t in (tools or DEFAULT_TOOLS)}
 
@@ -136,7 +126,6 @@ class AgentService:
         return REACT_SYSTEM_PROMPT.format(tools=tool_descriptions)
 
     def _parse_agent_output(self, text: str) -> Dict[str, Optional[str]]:
-        """Parse LLM output to extract Thought/Action/Answer."""
         import re
         result = {"thought": None, "action": None, "action_input": None, "final_answer": None}
 

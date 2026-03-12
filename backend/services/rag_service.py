@@ -42,8 +42,6 @@ except ImportError:
 
 
 class FAISSIndexManager:
-    """Manages FAISS indexes - one per user for isolation."""
-
     def __init__(self, index_path: str):
         self.index_path = Path(index_path)
         self.index_path.mkdir(parents=True, exist_ok=True)
@@ -56,7 +54,6 @@ class FAISSIndexManager:
         return self.index_path / f"{index_id}_meta.json"
 
     def create_or_load_index(self, index_id: str, dimension: int = 768) -> Optional[object]:
-        """Load existing FAISS index or create new one."""
         if not FAISS_AVAILABLE:
             return None
 
@@ -76,7 +73,6 @@ class FAISSIndexManager:
         return index
 
     def save_index(self, index_id: str) -> bool:
-        """Persist FAISS index to disk."""
         if not FAISS_AVAILABLE or index_id not in self._indexes:
             return False
         try:
@@ -87,7 +83,6 @@ class FAISSIndexManager:
             return False
 
     def add_vectors(self, index_id: str, vectors: np.ndarray) -> List[int]:
-        """Add vectors to index. Returns list of assigned IDs."""
         if not FAISS_AVAILABLE:
             return []
         index = self._indexes.get(index_id)
@@ -103,7 +98,6 @@ class FAISSIndexManager:
         return ids
 
     def search(self, index_id: str, query_vector: np.ndarray, top_k: int = 5) -> List[Tuple[int, float]]:
-        """Search index. Returns list of (vector_id, score) tuples."""
         if not FAISS_AVAILABLE:
             return []
         index = self._indexes.get(index_id)
@@ -126,7 +120,6 @@ faiss_manager = FAISSIndexManager(settings.FAISS_INDEX_PATH)
 
 
 class RAGService:
-    """Handles document ingestion and RAG retrieval pipeline."""
 
     CHUNK_SIZE = 500      # characters per chunk
     CHUNK_OVERLAP = 50    # overlap between chunks

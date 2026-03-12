@@ -7,9 +7,7 @@ from typing import Optional, List, Any
 from datetime import datetime
 
 
-# ──────────────────────────────────────────
 # Auth Schemas
-# ──────────────────────────────────────────
 
 class UserCreate(BaseModel):
     name: str = Field(..., min_length=2, max_length=100)
@@ -39,9 +37,7 @@ class Token(BaseModel):
     user: UserResponse
 
 
-# ──────────────────────────────────────────
 # Chat Schemas
-# ──────────────────────────────────────────
 
 class ChatCreate(BaseModel):
     title: Optional[str] = "New Chat"
@@ -81,9 +77,7 @@ class ChatHistoryResponse(BaseModel):
     messages: List[MessageResponse]
 
 
-# ──────────────────────────────────────────
 # Document Schemas
-# ──────────────────────────────────────────
 
 class DocumentResponse(BaseModel):
     document_id: int
@@ -111,9 +105,7 @@ class EmbeddingResponse(BaseModel):
         from_attributes = True
 
 
-# ──────────────────────────────────────────
 # Agent Schemas
-# ──────────────────────────────────────────
 
 class AgentRunRequest(BaseModel):
     query: str = Field(..., min_length=1)
@@ -147,9 +139,7 @@ class AgentRunResponse(BaseModel):
     total_duration_ms: float
 
 
-# ──────────────────────────────────────────
 # General Schemas
-# ──────────────────────────────────────────
 
 class HealthResponse(BaseModel):
     status: str

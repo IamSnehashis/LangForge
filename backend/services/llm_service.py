@@ -13,8 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class OllamaService:
-    """Handles all communication with the local Ollama LLM server."""
-
     def __init__(self):
         self.base_url = settings.OLLAMA_BASE_URL
         self.model = settings.OLLAMA_MODEL
@@ -22,7 +20,6 @@ class OllamaService:
         self.timeout = httpx.Timeout(120.0, connect=10.0)
 
     async def is_connected(self) -> bool:
-        """Check if Ollama server is reachable."""
         try:
             async with httpx.AsyncClient(timeout=5.0) as client:
                 resp = await client.get(f"{self.base_url}/api/tags")
@@ -31,7 +28,6 @@ class OllamaService:
             return False
 
     async def list_models(self) -> List[str]:
-        """List available models in Ollama."""
         try:
             async with httpx.AsyncClient(timeout=10.0) as client:
                 resp = await client.get(f"{self.base_url}/api/tags")
@@ -47,10 +43,6 @@ class OllamaService:
         model: Optional[str] = None,
         temperature: float = 0.7,
     ) -> AsyncGenerator[str, None]:
-        """
-        Stream chat completions token by token from Ollama.
-        Yields text chunks as they arrive.
-        """
         payload = {
             "model": model or self.model,
             "messages": messages,
@@ -89,7 +81,6 @@ class OllamaService:
         model: Optional[str] = None,
         temperature: float = 0.7,
     ) -> str:
-        """Non-streaming chat completion."""
         payload = {
             "model": model or self.model,
             "messages": messages,

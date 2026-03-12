@@ -12,7 +12,6 @@ from backend.db.database import Base
 
 
 class User(Base):
-    """Users table - stores registered users."""
     __tablename__ = "users"
 
     user_id = Column(Integer, primary_key=True, index=True)
@@ -31,7 +30,6 @@ class User(Base):
 
 
 class Chat(Base):
-    """Chats table - represents a conversation session."""
     __tablename__ = "chats"
 
     chat_id = Column(Integer, primary_key=True, index=True)
@@ -49,7 +47,6 @@ class Chat(Base):
 
 
 class Message(Base):
-    """Messages table - individual messages within a chat."""
     __tablename__ = "messages"
 
     message_id = Column(Integer, primary_key=True, index=True)
@@ -67,7 +64,6 @@ class Message(Base):
 
 
 class Document(Base):
-    """Documents table - uploaded files with metadata."""
     __tablename__ = "documents"
 
     document_id = Column(Integer, primary_key=True, index=True)
@@ -89,7 +85,6 @@ class Document(Base):
 
 
 class Embedding(Base):
-    """Embeddings table - vector references linking documents to FAISS."""
     __tablename__ = "embeddings"
 
     embedding_id = Column(Integer, primary_key=True, index=True)
@@ -108,7 +103,6 @@ class Embedding(Base):
 
 
 class AgentLog(Base):
-    """Agent Logs table - traces of agent executions and tool calls."""
     __tablename__ = "agent_logs"
 
     log_id = Column(Integer, primary_key=True, index=True)
@@ -131,7 +125,6 @@ class AgentLog(Base):
 
 
 class SystemLog(Base):
-    """System Logs - application-level telemetry."""
     __tablename__ = "system_logs"
 
     log_id = Column(Integer, primary_key=True, index=True)

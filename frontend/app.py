@@ -8,9 +8,7 @@ import json
 import time
 from typing import Optional
 
-# ──────────────────────────────────────────
 # Configuration
-# ──────────────────────────────────────────
 API_BASE = "http://localhost:8000/api/v1"
 st.set_page_config(
     page_title="LangForge",
@@ -34,9 +32,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ──────────────────────────────────────────
 # API Helpers
-# ──────────────────────────────────────────
 
 def get_headers() -> dict:
     token = st.session_state.get("token")
@@ -95,9 +91,7 @@ def api_delete(path: str) -> bool:
         return False
 
 
-# ──────────────────────────────────────────
 # Auth Pages
-# ──────────────────────────────────────────
 
 def show_auth_page():
     col1, col2, col3 = st.columns([1, 2, 1])
@@ -145,9 +139,7 @@ def show_auth_page():
                             st.rerun()
 
 
-# ──────────────────────────────────────────
 # Sidebar
-# ──────────────────────────────────────────
 
 def show_sidebar():
     with st.sidebar:
@@ -181,9 +173,7 @@ def show_sidebar():
     return page.split(" ", 1)[1] if " " in page else page
 
 
-# ──────────────────────────────────────────
 # Chat Page
-# ──────────────────────────────────────────
 
 def show_chat_page():
     st.markdown("## 💬 Chat")
@@ -281,9 +271,7 @@ def show_chat_page():
             st.rerun()
 
 
-# ──────────────────────────────────────────
 # Documents Page
-# ──────────────────────────────────────────
 
 def show_documents_page():
     st.markdown("## 📄 Document Management & RAG")
@@ -353,9 +341,7 @@ def show_documents_page():
                     st.rerun()
 
 
-# ──────────────────────────────────────────
 # Agent Page
-# ──────────────────────────────────────────
 
 def show_agent_page():
     st.markdown("## 🤖 ReAct Agent")
@@ -452,9 +438,7 @@ def show_agent_page():
     else:
         st.info("No agent logs yet. Run an agent task above.")
 
-# ──────────────────────────────────────────
 # Dashboard Page
-# ──────────────────────────────────────────
 
 def show_dashboard_page():
     st.markdown("## 📊 System Dashboard")
@@ -517,9 +501,7 @@ def show_dashboard_page():
         st.info("No documents uploaded")
 
 
-# ──────────────────────────────────────────
 # Main App
-# ──────────────────────────────────────────
 
 def main():
     if not st.session_state.get("token"):
