@@ -6,6 +6,17 @@ LangForge is a full-stack AI application framework that tightly integrates datab
 
 ---
 
+## 💡 Motivation
+
+Most GenAI frameworks lack:
+- Tight DB integration
+- Streaming-first design
+- Production-ready architecture
+
+LangForge solves this by combining LLM pipelines with structured persistence.
+
+
+
 ## 🏗️ Architecture
 
 ```
