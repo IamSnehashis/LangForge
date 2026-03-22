@@ -1,4 +1,5 @@
 # ⚡ LangForge
+**Contributors: Soumyadeep Dutta (24051355) and Snehashis Mandal(24051436)**
 
 **Production-Oriented GenAI Framework with Integrated DBMS**
 
