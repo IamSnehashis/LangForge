@@ -1,5 +1,6 @@
 # ⚡ LangForge
 **Contributors: Soumyadeep Dutta (24051355) and Snehashis Mandal(24051436)**
+
 **Production-Oriented GenAI Framework with Integrated DBMS**
 
 LangForge is a full-stack AI application framework that tightly integrates database management with modern AI pipelines — streaming LLM responses, Retrieval-Augmented Generation (RAG), and multi-step agent orchestration.
